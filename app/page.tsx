@@ -28,7 +28,7 @@ const Home = () => {
           <div className="flex flex-col justify-center">
             <p className="small-text">
               Smart Shopping Starts Here:
-              <Image
+              <img
                 src="/assets/icons/arrow-right.svg"
                 alt="arrow-right"
                 width={16}

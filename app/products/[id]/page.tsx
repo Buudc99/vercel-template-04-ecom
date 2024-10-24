@@ -73,7 +73,7 @@ const ProductDetails = () => {
 
             <div className="flex items-center gap-3">
               <div className="product-hearts">
-                <Image
+                <img
                   src="/assets/icons/red-heart.svg"
                   alt="heart"
                   width={20}
@@ -85,7 +85,7 @@ const ProductDetails = () => {
                 </p>
               </div>
               <div className="p-2 bg-white-200 rounded-10">
-                <Image
+                <img
                   src="/assets/icons/bookmark.svg"
                   alt="bookmark"
                   width={20}
@@ -93,7 +93,7 @@ const ProductDetails = () => {
                 />
               </div>
               <div className="p-2 bg-white-200 rounded-10">
-                <Image
+                <img
                   src="/assets/icons/share.svg"
                   alt="bookmark"
                   width={20}
@@ -123,7 +123,7 @@ const ProductDetails = () => {
             <div className="flex flex-col gap-4">
               <div className="flex gap-3">
                 <div className="product-stars">
-                  <Image
+                  <img
                     src="/assets/icons/star.svg"
                     alt="star"
                     width={16}
@@ -136,7 +136,7 @@ const ProductDetails = () => {
                 </div>
 
                 <div className="product-reviews">
-                  <Image
+                  <img
                     src="/assets/icons/comment.svg"
                     alt="comment"
                     width={16}
@@ -206,7 +206,7 @@ const ProductDetails = () => {
         </div>
 
         <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
-          <Image src="/assets/icons/bag.svg" alt="buy" width={22} height={22} />
+          <img src="/assets/icons/bag.svg" alt="buy" width={22} height={22} />
 
           <Link href="/" className="text-base text-white">
             Buy Now
