@@ -1,12 +1,26 @@
-import React from "react";
+"use client";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import Searchbar from "@/components/Searchbar";
 import HeroCarousel from "@/components/HeroCarousel";
 // import {getAllProducts} from "@/lib/actions";
 import ProductCard from "@/components/ProductCard";
+import axios from "axios";
 
-const Home = async () => {
-  const allProducts: any[] = [];
+const Home = () => {
+  const [products, setProducts] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios(
+        `${process.env.NEXT_PUBLIC_NEST_URL}/entry/data/list/content?id=${process.env.NEXT_PUBLIC_USER_ID}&channel=${process.env.NEXT_PUBLIC_CHANNEL_ID}&content_type=${process.env.NEXT_PUBLIC_CONTENT_TYPE}`
+      );
+
+      if (response?.data?.contents?.length > 0) {
+        setProducts(response?.data?.contents);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <section className="px-6 py-24 md:px-20 ">
@@ -42,8 +56,8 @@ const Home = async () => {
         <h2 className="section-text">Trending</h2>
 
         <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {allProducts?.map((product) => (
-            <ProductCard key={product._id} product={product} />
+          {products?.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>

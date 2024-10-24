@@ -1,29 +1,54 @@
+"use client";
 import Modal from "@/components/Modal";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import ProductCard from "@/components/ProductCard";
 // import { getProductById, getSimilarProducts } from "@/lib/actions";
 // import { formatNumber } from "@/lib/utils";
 import {Product} from "@/types";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import {redirect} from "next/navigation";
-import React from "react";
+import {redirect, useParams} from "next/navigation";
+import React, {useEffect, useState} from "react";
 type Props = {
   params: {id: string};
 };
 
-const ProductDetails = async ({params: {id}}: Props) => {
-  const product: any = {};
-  // if (!product) redirect("/");
-  // const similarProducts = await getSimilarProducts(id)
+const ProductDetails = () => {
+  const params = useParams();
+  const [products, setProducts] = useState<any>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (params) {
+        const response = await axios(
+          `${process.env.NEXT_PUBLIC_NEST_URL}/entry/data/detail/${params?.id}`
+        );
+
+        if (response?.data) {
+          setProducts(response?.data);
+        }
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
-    <div className="product-container">
+    <div
+      className={`product-container ${
+        products
+          ? "opacity-100 pointer-events-auto select-auto visible"
+          : "opacity-0 select-none invisible pointer-events-none"
+      } transition-all duration-1000`}
+    >
       <div className="flex gap-28 xl:flex-row flex-col">
         <div className="product-image">
-          <Image
-            src={product.image}
-            alt={product.title}
+          <img
+            src={
+              products?.content_data?.find(
+                (content: any) => content.slug === "thumbnail"
+              )?.value
+            }
+            alt={""}
             width={580}
             height={400}
             className="mx-auto"
@@ -34,11 +59,11 @@ const ProductDetails = async ({params: {id}}: Props) => {
           <div className="flex justify-between items-start gap-5 flex-wrap pb-6">
             <div className="flex flex-col gap-3">
               <p className="text-[28px] text-secondary font-semibold">
-                {product.title}
+                {products?.name}
               </p>
 
               <Link
-                href={product.url || ""}
+                href={"/"}
                 target="_blank"
                 className="text-base text-black opacity-50"
               >
@@ -56,7 +81,7 @@ const ProductDetails = async ({params: {id}}: Props) => {
                 />
 
                 <p className="text-base font-semibold text-[#D46F77]">
-                  {product.reviewsCount}
+                  {/* {products?.ta} */}
                 </p>
               </div>
               <div className="p-2 bg-white-200 rounded-10">
@@ -80,13 +105,18 @@ const ProductDetails = async ({params: {id}}: Props) => {
           <div className="product-info">
             <div className="flex flex-col gap-2">
               <p className="text-[34px] text-secondary font-bold">
-                {/* {product.currency} {formatNumber(product.currentPrice)} */}{" "}
-                asas
+                $
+                {
+                  products?.content_data?.find(
+                    (content: any) => content.slug === "price"
+                  )?.value
+                }
               </p>
 
               <p className="text-[21px] text-black opacity-50 line-through  ">
-                {/* {product.currency} {formatNumber(product.originalPrice)} */}{" "}
-                asas
+                {products?.content_data?.find(
+                  (content: any) => content.slug === "price"
+                )?.value + "00"}
               </p>
             </div>
 
@@ -101,7 +131,7 @@ const ProductDetails = async ({params: {id}}: Props) => {
                   />
 
                   <p className="text-sm text-primary-orange font-semibold">
-                    {product.stars || "25"}
+                    {/* {products.stars || "25"} */}
                   </p>
                 </div>
 
@@ -113,7 +143,7 @@ const ProductDetails = async ({params: {id}}: Props) => {
                     height={16}
                   />
                   <p className="text-sm text-secondary font-semibold">
-                    {product.reviewsCount}
+                    {/* {products.reviewsCount} */}
                   </p>
                 </div>
               </div>
@@ -153,22 +183,26 @@ const ProductDetails = async ({params: {id}}: Props) => {
             </div>
           </div>
 
-          <Modal productId={id} />
+          <Modal productId={params && params?.id.toString()} />
         </div>
       </div>
 
       <div className="flex flex-col gap-16">
-        <div
-          className="flex flex-col
-         gap-5"
-        >
+        <div className="flex flex-col gap-5">
           <h3 className="text-2xl text-secondary font-semibold">
             Product Description
           </h3>
 
-          <div className="flex flex-col gap-4">
-            {product?.description?.split("\n")}
-          </div>
+          <div
+            className="flex flex-col gap-4"
+            dangerouslySetInnerHTML={{
+              __html: `${
+                products?.content_data?.find(
+                  (content: any) => content.slug === "content"
+                )?.value
+              }`,
+            }}
+          />
         </div>
 
         <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
@@ -180,17 +214,17 @@ const ProductDetails = async ({params: {id}}: Props) => {
         </button>
       </div>
 
-      {/* {similarProducts && similarProducts?.length > 0 && ( */}
-      <div className="py-14 flex flex-col gap-2 w-full">
-        <p className="section-text">Similar Products</p>
+      {/* {products && products?.length > 0 && (
+        <div className="py-14 flex flex-col gap-2 w-full">
+          <p className="section-text">Similar Products</p>
 
-        <div className="flex flex-wrap gap-10 mt-7 w-full">
-          {/* {similarProducts.map((product) => ( */}
-          <ProductCard key={product._id} product={product} />
-          {/* ))} */}
+          <div className="flex flex-wrap gap-10 mt-7 w-full">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         </div>
-      </div>
-      {/* )} */}
+      )} */}
     </div>
   );
 };
