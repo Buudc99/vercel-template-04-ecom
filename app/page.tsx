@@ -53,12 +53,13 @@ const Home = () => {
       </section>
 
       <section className="trending-section">
-        <h2 className="section-text">Trending</h2>
+        <h2 className="section-text">Products</h2>
 
         <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {products?.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {products?.length > 0 &&
+            products?.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
         </div>
       </section>
     </>
