@@ -2,6 +2,7 @@
 import Modal from "@/components/Modal";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import ProductCard from "@/components/ProductCard";
+import {FindImageValues, FindValuesWithKey} from "@/lib/utils/Find";
 // import { getProductById, getSimilarProducts } from "@/lib/actions";
 // import { formatNumber } from "@/lib/utils";
 import {Product} from "@/types";
@@ -43,11 +44,7 @@ const ProductDetails = () => {
       <div className="flex gap-28 xl:flex-row flex-col">
         <div className="product-image">
           <img
-            src={
-              products?.content_data?.find(
-                (content: any) => content.slug === "thumbnail"
-              )?.value
-            }
+            src={`${FindImageValues(products?.content_data)}`}
             alt={""}
             width={580}
             height={400}
@@ -59,7 +56,10 @@ const ProductDetails = () => {
           <div className="flex justify-between items-start gap-5 flex-wrap pb-6">
             <div className="flex flex-col gap-3">
               <p className="text-[28px] text-secondary font-semibold">
-                {products?.name}
+                {FindValuesWithKey({
+                  arrayData: products?.content_data,
+                  findKey: "Title",
+                })}
               </p>
 
               <Link
@@ -104,19 +104,20 @@ const ProductDetails = () => {
           </div>
           <div className="product-info">
             <div className="flex flex-col gap-2">
-              <p className="text-[34px] text-secondary font-bold">
+              <p className="text-[34px] text-secondary font-bold line-through">
                 $
-                {
-                  products?.content_data?.find(
-                    (content: any) => content.slug === "price"
-                  )?.value
-                }
+                {FindValuesWithKey({
+                  arrayData: products?.content_data,
+                  findKey: "Pirce",
+                })}
+                00
               </p>
 
-              <p className="text-[21px] text-black opacity-50 line-through  ">
-                {products?.content_data?.find(
-                  (content: any) => content.slug === "price"
-                )?.value + "00"}
+              <p className="text-[21px] text-black opacity-50">
+                {FindValuesWithKey({
+                  arrayData: products?.content_data,
+                  findKey: "Pirce",
+                })}
               </p>
             </div>
 
@@ -196,11 +197,10 @@ const ProductDetails = () => {
           <div
             className="flex flex-col gap-4"
             dangerouslySetInnerHTML={{
-              __html: `${
-                products?.content_data?.find(
-                  (content: any) => content.slug === "content"
-                )?.value
-              }`,
+              __html: `${FindValuesWithKey({
+                arrayData: products?.content_data,
+                findKey: "Content",
+              })}`,
             }}
           />
         </div>

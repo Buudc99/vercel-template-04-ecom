@@ -1,25 +1,22 @@
+import {FindImageValues, FindValuesWithKey} from "@/lib/utils/Find";
 import {Product} from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, {FC} from "react";
 interface Props {
   product: any;
 }
-const ProductCard = ({product}: Props) => {
+const ProductCard: FC<Props> = ({product}) => {
   return (
-    <Link href={`/products/${product.id}`} className="product-card">
+    <Link
+      key={product.id}
+      href={`/products/${product.id}`}
+      className="product-card"
+    >
       <div className="product-card_img-container">
         <img
-          src={
-            product?.content_data?.find(
-              (content: any) => content.slug === "thumbnail"
-            )?.value
-          }
-          alt={
-            product?.content_data?.find(
-              (content: any) => content.slug === "title"
-            )?.value
-          }
+          src={`${product && FindImageValues(product?.content_data)}`}
+          alt={""}
           width={200}
           height={200}
           className="product-card_img"
@@ -28,35 +25,44 @@ const ProductCard = ({product}: Props) => {
 
       <div className="flex flex-col gap-3">
         <h3 className="product-title">
-          {
-            product?.content_data?.find(
-              (content: any) => content.slug === "title"
-            )?.value
-          }
+          {product &&
+            FindValuesWithKey({
+              arrayData: product?.content_data,
+              findKey: "Title",
+            })}
         </h3>
 
         <div className="flex justify-between">
           <p className="text-black opacity-50 text-lg capitalize">
-            {product?.taxonomies
-              ?.find((content: any) => content.slug === "categories")
-              ?.terms?.map((item: any) => (
-                <span>{item}</span>
-              ))}
+            {product?.taxonomies?.map((item: any, i: number) => {
+              if (item === "categories") {
+                return (
+                  <div key={i + "o"}>
+                    {item?.map((category: any, index: number) => (
+                      <span key={category.slug || index}>{category.name}</span>
+                    ))}
+                  </div>
+                );
+              }
+              return null;
+            })}
           </p>
 
           <p className="text-black text-lg font-semibold flex gap-6">
             <span>
-              {product?.content_data?.find(
-                (content: any) => content.slug === "price"
-              )?.value + "00"}
-              $
+              {product &&
+                FindValuesWithKey({
+                  arrayData: product?.content_data,
+                  findKey: "Pirce",
+                })}
+              00 $
             </span>
             <span className="line-through">
-              {
-                product?.content_data?.find(
-                  (content: any) => content.slug === "price"
-                )?.value
-              }
+              {product &&
+                FindValuesWithKey({
+                  arrayData: product?.content_data,
+                  findKey: "Pirce",
+                })}
               $
             </span>
           </p>
