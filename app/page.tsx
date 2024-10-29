@@ -1,9 +1,7 @@
 "use client";
 import React, {useEffect, useState} from "react";
-import Image from "next/image";
 import Searchbar from "@/components/Searchbar";
 import HeroCarousel from "@/components/HeroCarousel";
-// import {getAllProducts} from "@/lib/actions";
 import ProductCard from "@/components/ProductCard";
 import axios from "axios";
 

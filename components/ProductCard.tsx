@@ -1,6 +1,5 @@
-import {FindImageValues, FindValuesWithKey} from "@/lib/utils/Find";
 import {Product} from "@/types";
-import Image from "next/image";
+import {FindImageValues, FindValuesWithKey} from "@/utilities/Find";
 import Link from "next/link";
 import React, {FC} from "react";
 interface Props {
