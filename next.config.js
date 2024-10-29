@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+process.removeAllListeners("warning");
 const nextConfig = {
   // experimental: {
   //   serverActions: true,
