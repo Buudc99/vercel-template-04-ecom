@@ -385,7 +385,7 @@ const ProductDetails = () => {
         </div>
       )} */}
 
-      <div className="px-6">
+      {/* <div className="px-6">
         {reactions &&
           reactions_static &&
           detail_only_comment &&
@@ -400,13 +400,13 @@ const ProductDetails = () => {
               reactions={detail_only_reaction.reactions}
             />
           )}
-      </div>
+      </div> */}
 
-      <Comments
+      {/* <Comments
         reload={() => autoReloadComment()}
         entryId={detail?.id || ""}
         comments={detail_only_comment?.comments || []}
-      />
+      /> */}
     </div>
   );
 };
