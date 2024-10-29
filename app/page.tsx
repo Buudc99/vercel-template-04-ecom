@@ -8,16 +8,18 @@ import axios from "axios";
 const Home = () => {
   const [products, setProducts] = useState<any[]>([]);
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios(
-        `${process.env.NEXT_PUBLIC_NEST_URL}/entry/data/list/content?id=${process.env.NEXT_PUBLIC_USER_ID}&channel=${process.env.NEXT_PUBLIC_CHANNEL_ID}&content_type=${process.env.NEXT_PUBLIC_CONTENT_TYPE}`
-      );
+    if (window !== undefined) {
+      const fetchData = async () => {
+        const response = await axios(
+          `${process.env.NEXT_PUBLIC_NEST_URL}/entry/data/list/content?id=${process.env.NEXT_PUBLIC_USER_ID}&channel=${process.env.NEXT_PUBLIC_CHANNEL_ID}&content_type=${process.env.NEXT_PUBLIC_CONTENT_TYPE}`
+        );
 
-      if (response?.data?.contents?.length > 0) {
-        setProducts(response?.data?.contents);
-      }
-    };
-    fetchData();
+        if (response?.data?.contents?.length > 0) {
+          setProducts(response?.data?.contents);
+        }
+      };
+      fetchData();
+    }
   }, []);
   return (
     <>

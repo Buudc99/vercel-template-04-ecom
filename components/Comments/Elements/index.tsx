@@ -209,7 +209,7 @@ const CommentItem: FC<ParentCommentProps> = ({
         aria-disabled={showChild !== Number(comment.id)}
         className={`w-full border-l border-gray-100 ${showChild === Number(comment.id) ? "opacity-100 pointer-events-auto select-auto visible h-fit" : "opacity-0 pointer-events-none select-none invisible h-0"} transition-all duration-500`}
       >
-        {level >= 0 && comment.replies.length > 0 && (
+        {level < 2 && comment.replies.length > 0 && (
           <>
             {comment.replies.map((reply) => {
               return (

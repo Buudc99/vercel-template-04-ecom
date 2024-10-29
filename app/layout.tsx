@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Suspense fallback={<></>}>
           <ClientProvider>
             <div className="max-w-10xl mx-auto">
