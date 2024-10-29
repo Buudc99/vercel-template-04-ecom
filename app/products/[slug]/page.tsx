@@ -1,10 +1,8 @@
 "use client";
 import {GetData} from "@/apis";
 import Comments from "@/components/Comments";
-import Modal from "@/components/Modal";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import ReactionComp from "@/components/ReactionComp";
-import {FindImageValues, FindValuesWithKey} from "@/lib/utils/Find";
 import {RootState} from "@/stores";
 import {
   setPostDetailOnlyReaction,
@@ -13,12 +11,13 @@ import {
 } from "@/stores/Post";
 import {ContentDetailResponse} from "@/types/DetailContent";
 import {ReactionsResponse} from "@/types/Reactions";
+import {FindImageValues, FindValuesWithKey} from "@/utilities/Find";
 import {ConvertSlug} from "@/utilities/Slug";
 import {CleanStringRoute} from "@/utilities/Text";
 import axios from "axios";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import {redirect, useParams, usePathname} from "next/navigation";
+import {useParams, usePathname} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 

@@ -44,14 +44,7 @@ export type EmailProductInfo = {
   url: string;
 };
 
-export {
-  AllContentResponse,
-  Attachment,
-  Content,
-  DirectusPostmeum,
-  Taxonomy,
-  Term,
-} from "./AllContent";
+export {Content, Taxonomy, Term} from "./AllContent";
 
 export {CategoriesResponse, Category} from "./Categories";
 export {Reaction, ReactionsResponse} from "./Reactions";

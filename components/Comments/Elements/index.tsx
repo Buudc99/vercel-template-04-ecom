@@ -1,19 +1,12 @@
 "use client";
-import {RootState} from "@/stores";
-import {
-  setDeleteComment,
-  setMemorized,
-  setReplyComment,
-  setUpdateComment,
-} from "@/stores/Comment";
+import {setDeleteComment, setUpdateComment} from "@/stores/Comment";
 import {Comment} from "@/types/DetailContent";
 import {TimeAgo} from "@/utilities/DateConvert";
-import {FindValueWithKey} from "@/utilities/Find";
 import {AvatarWithName} from "@/utilities/Image";
 import {Icon} from "@iconify/react/dist/iconify.js";
-import {Avatar, Button, Dropdown, Input, MenuProps, Modal} from "antd";
-import React, {createRef, FC, memo, useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {Avatar, Button, Dropdown, Input} from "antd";
+import React, {FC, useState} from "react";
+import {useDispatch} from "react-redux";
 
 type ParentCommentProps = {
   comment: Comment;
@@ -41,10 +34,8 @@ const CommentItem: FC<ParentCommentProps> = ({
   const [reply, setReply] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [writeComment, setWriteComment] = useState<number | null>(null);
 
   const dispatch = useDispatch();
-  const dropdownRef = createRef<HTMLDivElement>();
 
   return (
     <div
@@ -218,7 +209,7 @@ const CommentItem: FC<ParentCommentProps> = ({
         aria-disabled={showChild !== Number(comment.id)}
         className={`w-full border-l border-gray-100 ${showChild === Number(comment.id) ? "opacity-100 pointer-events-auto select-auto visible h-fit" : "opacity-0 pointer-events-none select-none invisible h-0"} transition-all duration-500`}
       >
-        {level < 2 && comment.replies.length > 0 && (
+        {level >= 0 && level < 2 && comment.replies.length > 0 && (
           <>
             {comment.replies.map((reply) => {
               return (
@@ -235,23 +226,25 @@ const CommentItem: FC<ParentCommentProps> = ({
             })}
           </>
         )}
-        {level == 2 && comment.replies.length > 0 && (
-          <>
-            {comment.replies.map((reply) => {
-              return (
-                <CommentItem
-                  onDelete={onDelete}
-                  onUpdate={onUpdate}
-                  replyCommentFnc={replyCommentFnc}
-                  key={reply.id}
-                  comment={reply}
-                  level={2}
-                  className="mt-3"
-                />
-              );
-            })}
-          </>
-        )}
+        {level == 2 &&
+          level < comment?.replies?.length &&
+          comment.replies.length > 0 && (
+            <>
+              {comment.replies.map((reply) => {
+                return (
+                  <CommentItem
+                    onDelete={onDelete}
+                    onUpdate={onUpdate}
+                    replyCommentFnc={replyCommentFnc}
+                    key={reply.id}
+                    comment={reply}
+                    level={2}
+                    className="mt-3"
+                  />
+                );
+              })}
+            </>
+          )}
       </div>
     </div>
   );

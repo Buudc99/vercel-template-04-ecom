@@ -62,7 +62,15 @@ export const FindImageValues = (arrayData: ContentDaum[]): string[] => {
  */
 type KeyProps = {
   arrayData: ContentDaum[];
-  findKey: "Title" | "Image" | "Thumnaii" | "Content" | "Body" | "Created_at";
+  findKey:
+    | "Title"
+    | "Image"
+    | "Thumnaii"
+    | "Content"
+    | "Body"
+    | "Created_at"
+    | "Pirce"
+    | "categories";
 };
 export const FindValuesWithKey = ({arrayData, findKey}: KeyProps): string => {
   if (arrayData?.length > 0) {
