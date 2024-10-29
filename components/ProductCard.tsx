@@ -10,7 +10,7 @@ const ProductCard: FC<Props> = ({product}) => {
   return (
     <Link
       key={product.id}
-      href={`/products/${product.id}`}
+      href={`/products/${product.slug}`}
       className="product-card"
     >
       <div className="product-card_img-container">
