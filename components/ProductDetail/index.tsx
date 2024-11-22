@@ -27,7 +27,7 @@ const ProductDetail: FC<ProductDetailProps> = ({
     <div className="flex gap-28 xl:flex-row flex-col">
       <div className="product-image">
         <img
-          src={`${FindImageValues(products?.content_data)}`}
+          src={`${products && JSON.parse(FindValuesWithKey({arrayData: products?.content_data, findKey: "Image"}))[0]}`}
           alt={""}
           width={580}
           height={400}
@@ -104,20 +104,23 @@ const ProductDetail: FC<ProductDetailProps> = ({
         </div>
         <div className="product-info">
           <div className="flex flex-col gap-2">
-            <p className="text-[34px] text-secondary font-bold line-through">
-              $
-              {FindValuesWithKey({
-                arrayData: products?.content_data,
-                findKey: "Pirce",
-              })}
-              00
-            </p>
-
             <p className="text-[21px] text-black opacity-50">
-              {FindValuesWithKey({
-                arrayData: products?.content_data,
-                findKey: "Pirce",
-              })}
+              {products &&
+                Number(
+                  FindValuesWithKey({
+                    arrayData: products?.content_data,
+                    findKey: "Price",
+                  })
+                ) * 1.2}
+              $
+            </p>
+            <p className="text-[34px] text-secondary font-bold line-through">
+              {products &&
+                FindValuesWithKey({
+                  arrayData: products?.content_data,
+                  findKey: "Price",
+                })}
+              00 $
             </p>
           </div>
 
@@ -155,7 +158,16 @@ const ProductDetail: FC<ProductDetailProps> = ({
             </p>
           </div>
         </div>
+        <button className="btn w-full mt-4  mx-auto flex items-center justify-center gap-3 min-w-[200px]">
+          <img src="/assets/icons/bag.svg" alt="buy" width={22} height={22} />
 
+          <Link
+            href={`/checkout/${products?.slug}`}
+            className="text-base text-white"
+          >
+            Buy Now
+          </Link>
+        </button>
         <div className="my-7 flex flex-col gap-5">
           <div className="flex gap-5 flex-wrap">
             <PriceInfoCard

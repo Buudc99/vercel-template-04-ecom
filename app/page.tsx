@@ -4,14 +4,22 @@ import Searchbar from "@/components/Searchbar";
 import HeroCarousel from "@/components/HeroCarousel";
 import ProductCard from "@/components/ProductCard";
 import axios from "axios";
+import {log} from "console";
 
 const Home = () => {
   const [products, setProducts] = useState<any[]>([]);
   useEffect(() => {
     if (window !== undefined) {
       const fetchData = async () => {
-        const response = await axios(
-          `${process.env.NEXT_PUBLIC_NEST_URL}/entry/data/list/content?id=${process.env.NEXT_PUBLIC_USER_ID}&channel=${process.env.NEXT_PUBLIC_CHANNEL_ID}&content_type=${process.env.NEXT_PUBLIC_CONTENT_TYPE}`
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_NEST_URL}/entries/data/list/content`,
+          {
+            headers: {
+              user_id: `${process.env.NEXT_PUBLIC_USER_ID}`,
+              channel_id: `${process.env.NEXT_PUBLIC_CHANNEL_ID}`,
+              content_model_id: `${process.env.NEXT_PUBLIC_CONTENT_MODEL}`,
+            },
+          }
         );
 
         if (response?.data?.contents?.length > 0) {
@@ -21,13 +29,14 @@ const Home = () => {
       fetchData();
     }
   }, []);
+
   return (
     <>
       <section className="px-6 py-24 md:px-20 ">
         <div className="flex max-xl:flex-col gap-16">
           <div className="flex flex-col justify-center">
             <p className="small-text">
-              Smart Shopping Starts Here:
+              Traveling Starts Here:
               <img
                 src="/assets/icons/arrow-right.svg"
                 alt="arrow-right"
@@ -37,12 +46,13 @@ const Home = () => {
             </p>
 
             <h1 className="head-text">
-              Unleash the Power of <span className="text-primary">iPrice</span>
+              Unstoppable to travling{" "}
+              <span className="text-primary">Travelocation</span>
             </h1>
 
             <p className="mt-6">
-              Powerful, self-serve product and growth analytics to help you
-              convert, engage, and retain more.
+              Relax and peacful for self, challenge your self help you free
+              more.
             </p>
 
             <Searchbar />
@@ -53,13 +63,19 @@ const Home = () => {
       </section>
 
       <section className="trending-section">
-        <h2 className="section-text">Products</h2>
+        <h2 className="section-text">List</h2>
 
         <div className="flex flex-wrap gap-x-8 gap-y-16">
           {products?.length > 0 &&
-            products?.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            products?.map((product) => {
+              // console.log(JSON.stringify(products));
+
+              return (
+                product?.status === "Published" && (
+                  <ProductCard key={product.id} product={product} />
+                )
+              );
+            })}
         </div>
       </section>
     </>

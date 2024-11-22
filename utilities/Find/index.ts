@@ -47,7 +47,7 @@ export const FindValueWithKey = (
 export const FindImageValues = (arrayData: ContentDaum[]): string[] => {
   if (arrayData?.length > 0) {
     return arrayData
-      .filter((item) => item.slug === "image" || item.slug === "thumbnail")
+      .filter((item) => item.slug === "Image" || item.slug === "Thumbnail")
       .map((item) => item.value);
   }
   return [];
@@ -61,7 +61,7 @@ export const FindImageValues = (arrayData: ContentDaum[]): string[] => {
  * if `foundItem` is truthy, otherwise it returns an empty string.
  */
 type KeyProps = {
-  arrayData: ContentDaum[];
+  arrayData: ContentDaum[] | any[];
   findKey:
     | "Title"
     | "Image"
@@ -69,12 +69,12 @@ type KeyProps = {
     | "Content"
     | "Body"
     | "Created_at"
-    | "Pirce"
+    | "Price"
     | "categories";
 };
 export const FindValuesWithKey = ({arrayData, findKey}: KeyProps): string => {
   if (arrayData?.length > 0) {
-    const foundItem = arrayData.find((item) => item.name === findKey);
+    const foundItem = arrayData.find((item) => item.schema_name === findKey);
 
     return foundItem ? foundItem.value : "";
   }

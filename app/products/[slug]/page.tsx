@@ -16,6 +16,7 @@ import {ConvertSlug} from "@/utilities/Slug";
 import {CleanStringRoute} from "@/utilities/Text";
 import axios from "axios";
 import dynamic from "next/dynamic";
+import {headers} from "next/headers";
 import Link from "next/link";
 import {useParams, usePathname} from "next/navigation";
 import React, {useEffect, useState} from "react";
@@ -38,7 +39,7 @@ const ProductDetails = () => {
     if (window !== undefined) {
       if (pathName) {
         const response = (await GetData(
-          `${process.env.NEXT_PUBLIC_NEST_URL}/entry/data/detail/${ConvertSlug(CleanStringRoute(pathName))}`
+          `${process.env.NEXT_PUBLIC_NEST_URL}/entries/data/detail/${ConvertSlug(CleanStringRoute(pathName))}`
         )) as ContentDetailResponse;
 
         if (response && to === "reaction") {
@@ -57,7 +58,7 @@ const ProductDetails = () => {
       const fetchData = async () => {
         if (pathName) {
           const response = (await GetData(
-            `${process.env.NEXT_PUBLIC_NEST_URL}/entry/data/detail/${ConvertSlug(CleanStringRoute(pathName))}`
+            `${process.env.NEXT_PUBLIC_NEST_URL}/entries/data/detail/${ConvertSlug(CleanStringRoute(pathName))}`
           )) as ContentDetailResponse;
           // console.log(response);
 
@@ -159,7 +160,7 @@ const ProductDetails = () => {
       const fetchData = async () => {
         if (params) {
           const response = await axios(
-            `${process.env.NEXT_PUBLIC_NEST_URL}/entry/data/detail/${params?.slug}`
+            `${process.env.NEXT_PUBLIC_NEST_URL}/entries/data/detail/${params?.slug}`
           );
 
           if (response?.data) {
@@ -205,14 +206,6 @@ const ProductDetails = () => {
             }}
           />
         </div>
-
-        <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
-          <img src="/assets/icons/bag.svg" alt="buy" width={22} height={22} />
-
-          <Link href="/" className="text-base text-white">
-            Buy Now
-          </Link>
-        </button>
       </div>
 
       {/* {products && products?.length > 0 && (

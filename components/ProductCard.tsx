@@ -1,5 +1,9 @@
 import {Product} from "@/types";
-import {FindImageValues, FindValuesWithKey} from "@/utilities/Find";
+import {
+  FindImageValues,
+  FindValuesWithKey,
+  FindValueWithKey,
+} from "@/utilities/Find";
 import Link from "next/link";
 import React, {FC} from "react";
 interface Props {
@@ -14,7 +18,7 @@ const ProductCard: FC<Props> = ({product}) => {
     >
       <div className="product-card_img-container">
         <img
-          src={`${product && FindImageValues(product?.content_data)}`}
+          src={`${product && JSON.parse(FindValuesWithKey({arrayData: product?.content_data, findKey: "Image"}))[0]}`}
           alt={""}
           width={200}
           height={200}
@@ -52,16 +56,18 @@ const ProductCard: FC<Props> = ({product}) => {
               {product &&
                 FindValuesWithKey({
                   arrayData: product?.content_data,
-                  findKey: "Pirce",
+                  findKey: "Price",
                 })}
-              00 $
+              $
             </span>
-            <span className="line-through">
+            <span className="text-gray-500 line-through">
               {product &&
-                FindValuesWithKey({
-                  arrayData: product?.content_data,
-                  findKey: "Pirce",
-                })}
+                Number(
+                  FindValuesWithKey({
+                    arrayData: product?.content_data,
+                    findKey: "Price",
+                  })
+                ) * 1.2}
               $
             </span>
           </p>

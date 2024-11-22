@@ -16,7 +16,7 @@ const Navbar = () => {
           <img src="/assets/icons/logo.svg" width={27} height={27} alt="logo" />
 
           <p className="nav-logo">
-            i<span className="text-primary">price</span>
+            Trave<span className="text-primary">location</span>
           </p>
         </Link>
 
