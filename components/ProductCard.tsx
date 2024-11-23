@@ -14,7 +14,7 @@ const ProductCard: FC<Props> = ({product}) => {
     <Link
       key={product.id}
       href={`/products/${product.slug}`}
-      className="product-card"
+      className="product-card animate-fade"
     >
       <div className="product-card_img-container">
         <img

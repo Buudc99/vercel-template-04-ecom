@@ -24,8 +24,9 @@ const HeroCarousel = () => {
         showArrows={false}
         showStatus={false}
       >
-        {heroImage.map((image) => (
+        {heroImage.map((image, index) => (
           <img
+            key={"i" + index}
             src={image.imageUrl}
             height={484}
             className="object-fill aspect-square"

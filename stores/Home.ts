@@ -3,7 +3,7 @@ import {Content} from "@/types/AllContent";
 import {createSlice} from "@reduxjs/toolkit";
 
 interface HomeState {
-  content: Content[];
+  content: Content[] | any[];
 }
 
 const initialState: HomeState = {

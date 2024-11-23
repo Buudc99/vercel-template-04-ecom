@@ -5,14 +5,23 @@ import HeroCarousel from "@/components/HeroCarousel";
 import ProductCard from "@/components/ProductCard";
 import axios from "axios";
 import {log} from "console";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@/stores";
+import {setContent} from "@/stores/Home";
+import {ItemSkeleton} from "@/components/skeleton";
 
 const Home = () => {
-  const [products, setProducts] = useState<any[]>([]);
+  const [load, setLoad] = useState(true);
+  const {content} = useSelector((state: RootState) => state.home);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (window !== undefined) {
       const fetchData = async () => {
-        const response = await axios.get(
+        setLoad(true);
+        const response = await axios.post(
           `${process.env.NEXT_PUBLIC_NEST_URL}/entries/data/list/content`,
+          null,
           {
             headers: {
               user_id: `${process.env.NEXT_PUBLIC_USER_ID}`,
@@ -23,12 +32,23 @@ const Home = () => {
         );
 
         if (response?.data?.contents?.length > 0) {
-          setProducts(response?.data?.contents);
+          dispatch(setContent(response?.data?.contents));
+          // setProducts(response?.data?.contents);
+          setLoad(false);
         }
       };
       fetchData();
     }
   }, []);
+
+  useEffect(() => {
+    if (load) {
+      const to = setTimeout(() => {
+        setLoad(false);
+      }, 10000);
+      return clearTimeout(to);
+    }
+  }, [load]);
 
   return (
     <>
@@ -66,16 +86,25 @@ const Home = () => {
         <h2 className="section-text">List</h2>
 
         <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {products?.length > 0 &&
-            products?.map((product) => {
-              // console.log(JSON.stringify(products));
-
-              return (
-                product?.status === "Published" && (
-                  <ProductCard key={product.id} product={product} />
-                )
-              );
-            })}
+          {load ? (
+            <ItemSkeleton />
+          ) : (
+            <>
+              {content?.length > 0 ? (
+                content?.map((product) => {
+                  return (
+                    product?.status === "Published" && (
+                      <ProductCard key={product.id} product={product} />
+                    )
+                  );
+                })
+              ) : (
+                <h1 className="font-bold text-gray-200 w-full text-center text-2xl">
+                  Oops, no content found!
+                </h1>
+              )}
+            </>
+          )}
         </div>
       </section>
     </>

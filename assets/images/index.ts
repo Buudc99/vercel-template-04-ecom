@@ -8,6 +8,6 @@ export {default as GooglePlayDownload} from "./googleplayDownload.svg";
 export {default as Hero1} from "./1.jpeg";
 export {default as Hero2} from "./2.jpeg";
 export {default as Hero3} from "./3.jpeg";
-export {default as Hero4} from "./4.jpeg";
-export {default as Hero5} from "./5.jpeg";
+export {default as Hero4} from "./4.webp";
+export {default as Hero5} from "./5.jpg";
 export {default as Placeholder} from "./placeholder_bg.jpg";
