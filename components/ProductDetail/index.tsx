@@ -59,7 +59,7 @@ const ProductDetail: FC<ProductDetailProps> = ({
       const to = setTimeout(() => {
         setToPrice(false);
         setToPriceReal(false);
-      }, 5000);
+      }, 3000);
       return () => clearTimeout(to);
     }
   }, [toPrice, toPriceReal]);

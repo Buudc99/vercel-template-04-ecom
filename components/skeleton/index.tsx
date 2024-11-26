@@ -104,3 +104,73 @@ export const ItemSkeleton: FC<ItemSkeletonProps> = ({className}) => {
     </div>
   );
 };
+
+export const DetailProductPageSkeleton = () => {
+  return (
+    <div className="product-container opacity-100 pointer-events-auto select-auto visible transition-all duration-1000">
+      <div className="flex gap-28 xl:flex-row flex-col">
+        {/* Product Image Skeleton */}
+        <div className="product-image">
+          <div className="w-[580px] h-[400px] bg-slate-300 mx-auto rounded-lg animate-pulse"></div>
+        </div>
+
+        {/* Product Info Skeleton */}
+        <div className="flex-1 flex flex-col">
+          <div className="flex justify-between items-start gap-5 flex-wrap pb-6">
+            <div className="flex flex-col gap-3">
+              {/* Title */}
+              <div className="h-8 w-[200px] bg-slate-300 rounded-full animate-pulse"></div>
+              {/* Link */}
+              <div className="h-4 w-[100px] bg-slate-300 rounded-full animate-pulse"></div>
+            </div>
+            <div className="px-6">
+              {/* Reaction Component Placeholder */}
+              <div className="h-10 w-[120px] bg-slate-300 rounded-lg animate-pulse"></div>
+            </div>
+          </div>
+
+          {/* Product Pricing Skeleton */}
+          <div className="product-info flex flex-col gap-2 w-full">
+            <div className="h-6 w-full rounded-full animate-pulse bg-slate-300"></div>
+            <div className="h-8 w-full rounded-full animate-pulse bg-slate-300"></div>
+          </div>
+
+          {/* Product Reviews Skeleton */}
+          <div className="flex flex-col gap-4">
+            <div className="flex gap-3">
+              <div className="product-stars h-6 w-6 bg-slate-300 rounded-full animate-pulse"></div>
+              <div className="product-reviews h-6 w-6 bg-slate-300 rounded-full animate-pulse"></div>
+            </div>
+            <p className="h-4 w-[150px] bg-slate-300 rounded-full animate-pulse"></p>
+          </div>
+
+          {/* Buy Now Button */}
+          <div className="mt-4">
+            <div className="h-12 w-full bg-slate-300 rounded-lg animate-pulse"></div>
+          </div>
+
+          {/* Short Description */}
+          <div className="my-7 flex flex-col gap-5">
+            <div className="h-4 w-full bg-slate-300 rounded animate-pulse"></div>
+            <div className="h-4 w-3/4 bg-slate-300 rounded animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Product Description Section */}
+      <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-5">
+          <div className="h-6 w-[200px] bg-slate-300 rounded-full animate-pulse"></div>
+          <div className="h-4 w-full bg-slate-300 rounded animate-pulse"></div>
+          <div className="h-4 w-3/4 bg-slate-300 rounded animate-pulse"></div>
+        </div>
+      </div>
+
+      {/* Comments Skeleton */}
+      <div className="px-6">
+        <div className="h-10 w-full bg-slate-300 rounded-lg animate-pulse"></div>
+        <div className="h-20 w-full bg-slate-300 rounded-lg animate-pulse mt-4"></div>
+      </div>
+    </div>
+  );
+};

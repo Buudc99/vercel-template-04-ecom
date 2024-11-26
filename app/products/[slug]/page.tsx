@@ -3,6 +3,7 @@ import {GetData} from "@/apis";
 import Comments from "@/components/Comments";
 import ProductDetail from "@/components/ProductDetail";
 import ReactionComp from "@/components/ReactionComp";
+import {DetailProductPageSkeleton} from "@/components/skeleton";
 import {RootState} from "@/stores";
 import {
   setPostDetailOnlyReaction,
@@ -173,42 +174,38 @@ const ProductDetails = () => {
   }, []);
 
   return (
-    <div
-      className={`product-container ${
-        products
-          ? "opacity-100 pointer-events-auto select-auto visible"
-          : "opacity-0 select-none invisible pointer-events-none"
-      } transition-all duration-1000`}
-    >
-      <ProductDetail
-        products={products}
-        reactions={reactions}
-        reactions_static={reactions_static}
-        detail_only_comment={detail_only_comment}
-        detail_only_reaction={detail_only_reaction}
-        detail={detail}
-        autoReloadReaction={autoReloadReaction}
-      />
-
-      <div className="flex flex-col gap-16">
-        <div className="flex flex-col gap-5">
-          <h3 className="text-2xl text-secondary font-semibold">
-            Product Description
-          </h3>
-
-          <div
-            className="flex flex-col gap-4"
-            dangerouslySetInnerHTML={{
-              __html: `${FindValuesWithKey({
-                arrayData: products?.content_data,
-                findKey: "Content",
-              })}`,
-            }}
+    <>
+      {detail ? (
+        <div className={`product-container transition-all duration-1000`}>
+          <ProductDetail
+            products={products}
+            reactions={reactions}
+            reactions_static={reactions_static}
+            detail_only_comment={detail_only_comment}
+            detail_only_reaction={detail_only_reaction}
+            detail={detail}
+            autoReloadReaction={autoReloadReaction}
           />
-        </div>
-      </div>
 
-      {/* {products && products?.length > 0 && (
+          <div className="flex flex-col gap-16">
+            <div className="flex flex-col gap-5">
+              <h3 className="text-2xl text-secondary font-semibold">
+                Product Description
+              </h3>
+
+              <div
+                className="flex flex-col gap-4"
+                dangerouslySetInnerHTML={{
+                  __html: `${FindValuesWithKey({
+                    arrayData: products?.content_data,
+                    findKey: "Content",
+                  })}`,
+                }}
+              />
+            </div>
+          </div>
+
+          {/* {products && products?.length > 0 && (
         <div className="py-14 flex flex-col gap-2 w-full">
           <p className="section-text">Similar Products</p>
 
@@ -220,29 +217,33 @@ const ProductDetails = () => {
         </div>
       )} */}
 
-      <div className="px-6">
-        {reactions &&
-          reactions_static &&
-          detail_only_comment &&
-          detail_only_reaction &&
-          detail &&
-          reactions?.length > 0 && (
-            <ReactionComp
-              reload={autoReloadReaction}
-              entry_id={detail.id}
-              items={reactions}
-              items_static={reactions_static}
-              reactions={detail_only_reaction.reactions}
-            />
-          )}
-      </div>
+          <div className="px-6">
+            {reactions &&
+              reactions_static &&
+              detail_only_comment &&
+              detail_only_reaction &&
+              detail &&
+              reactions?.length > 0 && (
+                <ReactionComp
+                  reload={autoReloadReaction}
+                  entry_id={detail.id}
+                  items={reactions}
+                  items_static={reactions_static}
+                  reactions={detail_only_reaction.reactions}
+                />
+              )}
+          </div>
 
-      <Comments
-        reload={() => autoReloadComment()}
-        entryId={detail?.id || ""}
-        comments={detail_only_comment?.comments || []}
-      />
-    </div>
+          <Comments
+            reload={() => autoReloadComment()}
+            entryId={detail?.id || ""}
+            comments={detail_only_comment?.comments || []}
+          />
+        </div>
+      ) : (
+        <DetailProductPageSkeleton />
+      )}
+    </>
   );
 };
 
