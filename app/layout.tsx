@@ -13,9 +13,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "iPrice",
+  title: "Travelocation",
   description:
-    "Track product prices effortlessly and save money on your online shopping.",
+    "Booking the trending tour with the best services of all locations.",
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {

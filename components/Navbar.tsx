@@ -1,3 +1,4 @@
+import {Icon} from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -21,6 +22,9 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-5">
+          <Link href="/orders" title="Orders history">
+            <Icon icon="ph:clock" fontSize={24} className="text-gray-700" />
+          </Link>
           {navIcons.map((icon) => (
             <img
               key={icon.alt}

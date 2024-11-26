@@ -1,3 +1,5 @@
+import {FC} from "react";
+
 export const PageSkeleton = () => {
   return (
     <div className={`product-container transition-all duration-1000`}>
@@ -68,9 +70,12 @@ export const PageSkeleton = () => {
     </div>
   );
 };
-export const ItemSkeleton = () => {
+type ItemSkeletonProps = {
+  className?: string;
+};
+export const ItemSkeleton: FC<ItemSkeletonProps> = ({className}) => {
   return (
-    <div className={`grid grid-cols-4 gap-4`}>
+    <div className={`grid grid-cols-4 gap-4 ${className}`}>
       {Array.from({length: 4}).map((_, index) => (
         <div
           key={index}

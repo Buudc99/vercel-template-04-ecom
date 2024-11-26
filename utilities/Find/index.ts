@@ -70,7 +70,8 @@ type KeyProps = {
     | "Body"
     | "Created_at"
     | "Price"
-    | "categories";
+    | "categories"
+    | string;
 };
 export const FindValuesWithKey = ({arrayData, findKey}: KeyProps): string => {
   if (arrayData?.length > 0) {

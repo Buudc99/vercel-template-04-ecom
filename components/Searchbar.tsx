@@ -78,16 +78,23 @@ const Searchbar = () => {
     }
   };
   return (
-    <form className="flex flex-wrap gap-4 mt-12" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-wrap gap-4 mt-12 p-2 justify-center group before:group-active:w-full items-center before:rounded-xl relative before:content[] before:transition-all before:duration-500 before:w-full before:absolute before:bg-neutral-black before:h-full before:z-[1]"
+      onSubmit={handleSubmit}
+    >
       <input
         type="text"
         placeholder="Enter your place"
-        className="searchbar-input"
+        className="searchbar-input z-[2] relative"
         value={searchPrompt}
         // disabled={searchPrompt=== ''}
         onChange={(e) => setSearchPrompt(e.target.value)}
       />
-      <button disabled={isLoading} type="submit" className="searchbar-btn">
+      <button
+        disabled={isLoading}
+        type="submit"
+        className="z-[2] relative !border-none !bg-neutral-black searchbar-btn"
+      >
         {isLoading ? "Searching..." : "Search"}
       </button>
     </form>

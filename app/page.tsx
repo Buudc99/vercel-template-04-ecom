@@ -66,7 +66,7 @@ const Home = () => {
             </p>
 
             <h1 className="head-text">
-              Unstoppable to travling{" "}
+              Unstoppable to traveling{" "}
               <span className="text-primary">Travelocation</span>
             </h1>
 
@@ -82,12 +82,14 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="trending-section">
-        <h2 className="section-text">List</h2>
+      <section className="pl-12 pb-24 pr-12 flex flex-col gap-8">
+        <h2 className="w-fit flex items-center justify-center text-4xl font-bold mx-auto relative before:content[] before:w-0 before:opacity-0 before:hover:opacity-100 before:rounded-full before:h-1 before:bg-black before:absolute before:-bottom-2 before:left-1/2 before:hover:left-0 before:hover:w-full before:transition-all before:duration-500 before:ease-linear">
+          Travels Trending
+        </h2>
 
-        <div className="flex flex-wrap gap-x-8 gap-y-16">
+        <div className="grid grid-cols-4 gap-6">
           {load ? (
-            <ItemSkeleton />
+            <ItemSkeleton className="col-span-4" />
           ) : (
             <>
               {content?.length > 0 ? (

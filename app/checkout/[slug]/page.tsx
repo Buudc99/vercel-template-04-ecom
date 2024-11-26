@@ -72,7 +72,7 @@ const Checkout = () => {
       const linForm = {
         method: "online",
         provider_code: method,
-        callback_url: "http://localhost:3000",
+        callback_url: window.location.origin,
       };
       const responseCreateLink = await axios.post(
         `${process.env.NEXT_PUBLIC_DOMAIN_CENTRALIED}/payment/create-link/MEDUSA/${response.data?.data?.order?.id}`,
